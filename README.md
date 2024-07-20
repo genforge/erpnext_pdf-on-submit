@@ -44,6 +44,10 @@ This app uses the Default Print Format. To change the Default Print Format,
 
 The PDF will be created in the language that is specified in the "Language" field of the current document. In your **Customer** and **Supplier** masters you can choose the default "Print Language".
 
+## Add translations
+
+To add translations for a new language, please copy `pdf_on_submit/locale/main.pot` to `pdf_on_submit/locale/<language_code>.po` and fill in the translations (`msgstr`) for each `msgid`. When you're done, you can commit your changes and send a PR.
+
 ## Licence
 
 Copyright (C) 2020  ALYF GmbH <hallo@alyf.de>

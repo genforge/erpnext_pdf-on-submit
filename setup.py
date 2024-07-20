@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from pdf_on_submit import __version__ as version
 from setuptools import find_packages, setup
 
