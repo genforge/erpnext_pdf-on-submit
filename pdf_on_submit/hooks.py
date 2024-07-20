@@ -4,11 +4,11 @@ from . import __version__ as app_version
 
 app_name = "pdf_on_submit"
 app_title = "PDF on Submit"
-app_publisher = "Raffael Meyer"
+app_publisher = "ALYF GmbH"
 app_description = "Generatation, Sales Order, Sales Invoice and Delivery Note"
 app_icon = "octicon octicon-file-pdf"
 app_color = "#DB2B39"
-app_email = "raffael@alyf.de"
+app_email = "hallo@alyf.de"
 app_license = "GPLv3"
 
 # Includes in <head>
