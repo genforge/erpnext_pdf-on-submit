@@ -64,7 +64,6 @@ def execute(doctype, name, title=None, lang=None, show_progress=True, auto_name=
     """
     Queue calls this method, when it's ready.
 
-<<<<<<< HEAD
     1. Create necessary folders
     2. Get raw PDF data
     3. Save PDF file and attach it to the document
@@ -77,16 +76,6 @@ def execute(doctype, name, title=None, lang=None, show_progress=True, auto_name=
             docname=name,
         )
 
-    if lang:
-        frappe.local.lang = lang
-        # unset lang and jenv to load new language
-        frappe.local.lang_full_dict = None
-        frappe.local.jenv = None
-=======
-	if show_progress:
-		publish_progress(0)
->>>>>>> 94e5d43 (refactor: set print language)
-
     if show_progress:
         publish_progress(0)
 
@@ -94,23 +83,15 @@ def execute(doctype, name, title=None, lang=None, show_progress=True, auto_name=
     title_folder = create_folder(title, doctype_folder) if title else None
     target_folder = title_folder or doctype_folder
 
-<<<<<<< HEAD
     if show_progress:
         publish_progress(33)
-=======
-	with print_language(lang):
-		if frappe.db.get_value("Print Format", print_format, "print_format_builder_beta"):
-			doc = frappe.get_doc(doctype, name)
-			pdf_data = PrintFormatGenerator(print_format, doc, letter_head).render_pdf()
-		else:
-			pdf_data = get_pdf_data(doctype, name, print_format, letter_head)
->>>>>>> 94e5d43 (refactor: set print language)
 
-    if frappe.db.get_value("Print Format", print_format, "print_format_builder_beta"):
-        doc = frappe.get_doc(doctype, name)
-        pdf_data = PrintFormatGenerator(print_format, doc, letter_head).render_pdf()
-    else:
-        pdf_data = get_pdf_data(doctype, name, print_format, letter_head)
+    with print_language(lang):
+        if frappe.db.get_value("Print Format", print_format, "print_format_builder_beta"):
+            doc = frappe.get_doc(doctype, name)
+            pdf_data = PrintFormatGenerator(print_format, doc, letter_head).render_pdf()
+        else:
+            pdf_data = get_pdf_data(doctype, name, print_format, letter_head)
 
     if show_progress:
         publish_progress(66)
