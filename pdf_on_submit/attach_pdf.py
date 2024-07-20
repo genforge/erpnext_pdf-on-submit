@@ -21,6 +21,7 @@ from frappe import _
 from frappe.core.api.file import create_new_folder
 from frappe.model.naming import _format_autoname
 from frappe.realtime import publish_realtime
+from frappe.translate import print_language
 from frappe.utils.weasyprint import PrintFormatGenerator
 
 
@@ -90,12 +91,6 @@ def execute(
 			docname=name,
 		)
 
-	if lang:
-		frappe.local.lang = lang
-		# unset lang and jenv to load new language
-		frappe.local.lang_full_dict = None
-		frappe.local.jenv = None
-
 	if show_progress:
 		publish_progress(0)
 
@@ -106,11 +101,12 @@ def execute(
 	if show_progress:
 		publish_progress(33)
 
-	if frappe.db.get_value("Print Format", print_format, "print_format_builder_beta"):
-		doc = frappe.get_doc(doctype, name)
-		pdf_data = PrintFormatGenerator(print_format, doc, letter_head).render_pdf()
-	else:
-		pdf_data = get_pdf_data(doctype, name, print_format, letter_head)
+	with print_language(lang):
+		if frappe.db.get_value("Print Format", print_format, "print_format_builder_beta"):
+			doc = frappe.get_doc(doctype, name)
+			pdf_data = PrintFormatGenerator(print_format, doc, letter_head).render_pdf()
+		else:
+			pdf_data = get_pdf_data(doctype, name, print_format, letter_head)
 
 	if show_progress:
 		publish_progress(66)
