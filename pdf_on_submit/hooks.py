@@ -1,3 +1,6 @@
+# Copyright (c) 2019, Raffael Meyer and contributors
+# For license information, please see license.txt
+
 from . import __version__ as app_version
 
 app_name = "pdf_on_submit"
