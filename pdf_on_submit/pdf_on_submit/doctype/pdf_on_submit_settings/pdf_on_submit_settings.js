@@ -11,4 +11,25 @@ frappe.ui.form.on("PDF on Submit Settings", {
 			};
 		});
 	},
+	enabled_for_on_form_rendered(frm, dt, a, b, c) {
+		const row = frm.cur_grid.doc;
+		const filters = row.filters ? JSON.parse(row.filters) : [];
+
+		frappe.model.with_doctype(row.document_type, () => {
+			const filter_group = new frappe.ui.FilterGroup({
+				parent: frm.cur_grid.wrapper.find("[data-fieldname='filter_area']"),
+				doctype: row.document_type,
+				on_change: () => {
+					frappe.model.set_value(
+						row.doctype,
+						row.name,
+						"filters",
+						JSON.stringify(filter_group.get_filters())
+					);
+				},
+			});
+
+			filter_group.add_filters_to_filter_group(filters);
+		});
+	},
 });
